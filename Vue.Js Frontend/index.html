@@ -1,0 +1,24 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vue.js Präsentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		{{ message }}
+	</div>
+	
+	<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello Vue!'
+		}
+	})
+</script>
+</body>
+</html>
