@@ -3,6 +3,7 @@ package com.example.bookservice;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,21 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BookController {
+    
+    @Autowired
+    private BookRepository repository;
 
-    private final BookRepository repository;
 
-
-    BookController(BookRepository repository) {
-        this.repository = repository;
-    }
-
-    @CrossOrigin(origins = "localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8080")
     @PostMapping("books")
     public ResponseEntity<Book> postBook(@RequestBody Book book){
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.save(book));
     }
 
-    @CrossOrigin(origins = "localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8080")
     @GetMapping("book/{id}")
     public ResponseEntity<?> getBook(@PathVariable Long id) {
         Optional<Book> book = this.repository.findById(id);
