@@ -2,7 +2,10 @@ package com.example.bookservice;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity(name = "Books")
@@ -10,6 +13,8 @@ import javax.persistence.Table;
 public class Book {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_SEQ")
+	@SequenceGenerator(sequenceName = "book_seq", allocationSize = 1, name = "BOOK_SEQ")
     @Column(name = "id")
     Long id;
 

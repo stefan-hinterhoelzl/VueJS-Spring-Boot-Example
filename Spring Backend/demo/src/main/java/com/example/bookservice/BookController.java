@@ -1,12 +1,12 @@
 package com.example.bookservice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,13 +20,11 @@ public class BookController {
     private BookRepository repository;
 
 
-    @CrossOrigin(origins = "https://localhost:8080")
-    @PostMapping("books")
+    @PostMapping("book")
     public ResponseEntity<Book> postBook(@RequestBody Book book){
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.save(book));
     }
 
-    @CrossOrigin(origins = "https://localhost:8080")
     @GetMapping("book/{id}")
     public ResponseEntity<?> getBook(@PathVariable Long id) {
         Optional<Book> book = this.repository.findById(id);
@@ -40,12 +38,20 @@ public class BookController {
        
     }
 
-    @CrossOrigin(origins = "localhost:8080")
     @GetMapping("books/author/{author}")
     public ResponseEntity<?> getBooksByAuthor(@PathVariable String author) {
         List<Book> books = this.repository.findByAuthor(author);
         return ResponseEntity.status(HttpStatus.OK).body(books);
-      
+    }
+
+    @GetMapping("books")
+    public ResponseEntity<?> getAllBooks() {
+        Iterable<Book> books = this.repository.findAll();
+        List<Book> booklist = new ArrayList<Book>();
+
+        books.iterator().forEachRemaining(booklist::add);
+
+        return ResponseEntity.status(HttpStatus.OK).body(booklist);
     }
     
 }
