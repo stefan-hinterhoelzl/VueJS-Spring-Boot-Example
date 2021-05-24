@@ -41,16 +41,13 @@ export default {
                 body: JSON.stringify({ id: this.id, title: this.title, author: this.author })
               };
           
-
             fetch("http://localhost:8081/book", requestOptions)
             .then(response => response.json())
             .then(() => {
               this.title = ""
               this.author = ""
               this.getBooks()
-            })
-
-           
+            })         
           }
       },
       getBooks: function() {
