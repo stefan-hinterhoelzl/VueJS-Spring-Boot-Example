@@ -38,7 +38,7 @@ export default {
             const requestOptions = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: this.id, title: this.title, author: this.author })
+                body: JSON.stringify({title: this.title, author: this.author })
               };
           
             fetch("http://localhost:8081/book", requestOptions)
